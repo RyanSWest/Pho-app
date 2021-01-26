@@ -7,6 +7,37 @@
   pointer-events: none;
 }
 
+ .cart-button{
+  margin: 10px;
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  background-color: orange;
+  padding: 8px;
+  color: whitesmoke;
+  font-size: 25px;
+
+
+ }
+
+
+ .tip{
+   padding: 7px;
+   border: 2px solid white;
+   background-color: orange;
+ }
+
+ .add-tip {
+  border: 2px solid white;
+  background-color: orange;
+  height: 20%;
+
+ }
+ .tip:hover{
+  background-color:rgb(255, 217, 0);
+  color: rgb(255, 94, 0)
+
+
+ }
 .item{
   border: 4px solid white;
   border-radius: 10px;
@@ -19,6 +50,17 @@
   margin: 10px;
 
 
+}
+
+.tip-container {
+  border: 2px solid white;
+}
+
+.tips{
+  display: flex;
+  border: 2px solid white;
+  justify-content: center;
+  width: 100%;
 }
 
  .link{

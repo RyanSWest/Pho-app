@@ -1,6 +1,6 @@
  
 import './App.css';
-import React, {useState} from  'react';
+import React, {useState, useHistory} from  'react';
 import {Route} from 'react-router-dom';
 import data from './data';
 import drinks from './drinks';
@@ -10,6 +10,7 @@ import Items from './components/Items';
 import Appetizers from './components/Appetizers';
 import ShoppingCart from './components/ShoppingCart';
 import Drinks from './components/Drinks';
+import Checkout from './components/Checkout';
 
 
 
@@ -19,11 +20,25 @@ function App() {
      const [drinkies]= useState(drinks)
      const [cart, setCart]= useState([]);
       
-     console.log("CART",cart)
 
      const addItem = item => {
+        item.id =  cart.indexOf(item)
        setCart([...cart, item])
-       console.log("CLICK")
+       
+     }
+
+     const removeItem = item => {
+      //  delete cart[item.id]
+       const filtered = cart.filter(e=> {
+         if (cart.indexOf (e) != cart.indexOf (item))
+          //  if (e!= item)
+         {
+           return e
+         }
+       })
+       setCart(filtered)
+       console.log('NEWCART', cart, "FILTERED", filtered)
+      console.log( "IDX",cart.indexOf(item))
      }
   return (
     <div className="App">
@@ -67,7 +82,11 @@ function App() {
 
          <Route
             path ="/cart"
-            render = {()=> <ShoppingCart cart={cart}/>}
+            render = {()=> <ShoppingCart cart={cart}  removeItem = {removeItem}/>}
+            />
+             <Route
+            path ="/checkout"
+            render = {()=> <Checkout cart={cart}/>}
             />
     </div>
   );

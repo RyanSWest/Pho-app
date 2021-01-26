@@ -26,8 +26,9 @@ const Items = (props)=> {
 
               {props.items.map(i=> {
                 return (
-                     <div  className = 'item' key ={i.id}>
-                     <h3>{i.item}</h3>     
+                     <div  className = 'item' key = {i.id}>
+                     <h3>{i.item}</h3> 
+                     <h3>{i.id}</h3>    
                     <h3>${i.price.toFixed(2)}</h3> 
                     
                     <img className = 'image'src = {i.image}/>
