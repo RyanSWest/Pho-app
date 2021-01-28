@@ -1,6 +1,6 @@
 import React from 'react'
 import Item from './ShoppingCartItem';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect} from 'react';
 import {CartContext} from '../contexts/CartContext'
 
 const ShoppingCart = (props)=> {
@@ -13,6 +13,7 @@ const ShoppingCart = (props)=> {
     console.log("WHAT",props.cart)
 
     console.log("BILL", bill)
+
     const getCartTotal = () => {
         return props.cart
           .reduce((acc, value) => {
@@ -21,11 +22,15 @@ const ShoppingCart = (props)=> {
           .toFixed(2);
       };
 
+    
 
+    // useEffect(()=> {
+    //     setBill(parseFloat(0))
+    // },[])
     let total = getCartTotal()
      
     let realTip = tip/props.cart.length
-    setBill(parseFloat(total)+ parseFloat(tip)+parseFloat(setCustomTip))
+    setBill(parseFloat(total)+ parseFloat(tip) )
     const addTip = (e)=> {
         e.preventDefault()
         setCustomTip(e.target.value)
@@ -62,9 +67,10 @@ const ShoppingCart = (props)=> {
          })}
 
      
-       <h3>Tip: {tip}</h3>
+       <h3>Tip: {tip.toFixed(2)}</h3>
        <p>{total}</p>
-       <h3>{bill}</h3>
+       <p>{parseFloat(total).toFixed(2)}</p>
+       <h3>${bill.toFixed(2)}</h3>
 
 
 <div className= 'tips'>
