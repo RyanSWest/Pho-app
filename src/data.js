@@ -1,6 +1,6 @@
 export default [
   {
-    // id: Date.now(),
+    
     id: 1,
     item: "Pho",
     price: 10.0,

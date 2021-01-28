@@ -1,90 +1,73 @@
-import React from "react";
-import Item from "./ShoppingCartItem";
-import { useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
-import { CartContext} from '../contexts/CartContext';
+import React from 'react'
+import Item from './ShoppingCartItem';
+import { useState, useContext } from 'react';
+import {CartContext} from '../contexts/CartContext'
+
+const ShoppingCart = (props)=> {
+     
+    
+    const {bill, setBill}= useContext(CartContext)
+    const [tip, setTip]= useState(0)
+    const [customTip, setCustomTip]= useState(0)
+    
+    console.log("WHAT",props.cart)
+
+    console.log("BILL", bill)
+    const getCartTotal = () => {
+        return props.cart
+          .reduce((acc, value) => {
+            return acc + value.price ;
+          }, 0)
+          .toFixed(2);
+      };
 
 
-const ShoppingCart = (props) => {
-
-
-  console.log("CART PROPS", props);
-  const history = useHistory();
-  const [tip, setTip] = useState(0);
-  const [customTip, setCustomTip] = useState(0);
-
-  const[tipPress, setTipPress]= useState(false)
-
-  const getCartTotal = () => {
-    return props.cart
-      .reduce((acc, value) => {
-        return acc + value.price + tip + customTip;
-      }, 0)
-      .toFixed(2);
-  };
-
-  let total = getCartTotal();
-  console.log("TOTAL", total);
-
-//   const addTip = (e) => {
-//     e.preventDefault();
-//     setCustomTip(e.target.value);
-//     total = parseInt((total += customTip)).toFixed(2);
-//   };
-
-  let twentyfive = total * 0.25;
-  const goToCheckout = () => {
-    history.push("/checkout");
-  };
-
-  //tip percentages
-  let ten = total * 0.1;
-  let fifteen = total * 0.15;
-
-  function getTimeStamp() {
-    var now = new Date();
-    return (
-      now.getMonth() +
-      1 +
-      "/" +
-      now.getDate() +
-      "/" +
-      now.getFullYear() +
-      " " +
-      now.getHours() +
-      ":" +
-      (now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes()) +
-      ":" +
-      (now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds())
-    );
-  }
-
-  let d = new Date();
-  // let time = d.now();
-  console.log("TIME", getTimeStamp());
-
-  return (
-    <div className="items">
-      <h1>Cart</h1>
-      {props.cart.map((i) => {
-        return (
-          <Item key={i.id} {...i} removeItem={() => props.removeItem(i)} />
-        );
-      })}
-
-      <p> Total: ${getCartTotal()}</p>
-
-      {props.cart.length > 0 && (
+    let total = getCartTotal()
+     
+    let realTip = tip/props.cart.length
+    setBill(parseFloat(total)+ parseFloat(tip)+parseFloat(setCustomTip))
+    const addTip = (e)=> {
+        e.preventDefault()
+        setCustomTip(e.target.value)
+        // total = parseInt (total += customTip)
+        .toFixed(2)
          
-         <div className = 'tip-container' >
+          
+    }
+
+    const remover =(item)=> {
+        props.removeItem(item)
+        setTip(total * .10)
+        setTip(0)
+    }
+
+    const cancelTip =()=> {
+        setCustomTip(0)
+        setTip(0)
+    }
+    return (
+        <div>
+         <h2>Cart</h2>
+         
+         {props.cart.map(e => {
+             return(
+                <div className = 'cart-item' key= {e.id}>
+                    <h3>{e.item}</h3>
+                    <h3>{e.price}</h3>
+                    <button onClick = {()=>remover(e)}>remove</button>
+                    
+                    
+                     </div>
+             )
+         })}
+
+     
+       <h3>Tip: {tip}</h3>
+       <p>{total}</p>
+       <h3>{bill}</h3>
 
 
-             <h4> Add Tip</h4>
-           
-
-
-
-           <div className= 'tips'>
+<div className= 'tips'>
           <div className="tip-div">
             <button className="tip" onClick={() => setTip(0)}>
               No Tip
@@ -95,58 +78,48 @@ const ShoppingCart = (props) => {
           <div className="tip-div">
             <button
               className="tip"
-              disabled ={!ten}
-              onClick={() => setTip((total * 0.1) / props.cart.length)}
+              disabled ={tip>0}
+              onClick={() => setTip((total * 0.1)  )}
             >
               10%
             </button>
-            <p className="tip-amount">${ten.toFixed(2)}</p>  
+            
 
            </div>
 
           <div className="tip-div">
             <button
               className="tip"
-              onClick={() => setTip((total * 0.15) / props.cart.length)}
+              disabled ={tip>0}
+
+              onClick={() => setTip(total * 0.15)  }
             >
               15%
             </button>
-            <p>${fifteen.toFixed(2)}</p>
+            
           </div>
 
           <div className="tip-div">
             <button
               className="tip"
-              onClick={() => setTip((total * 0.25) / props.cart.length)}
+              disabled ={tip>0}
+
+              onClick={() => setTip(total * 0.25)  }
             >
               25%
             </button>
-            <p>${twentyfive.toFixed(2)}</p>
+            
           </div>
 
 
         </div>
 
-
-             </div>
-
-
+         
+         </div>
+ 
         
-      )}
+        
+    )
+}
 
-      {/* <form type="submit" onSubmit={(e) => addTip}>
-          <input
-            className="tip-input"
-            type="text"
-            name="customTip"
-            value={customTip}
-            onChange={(e) => setCustomTip(e.target.value)}
-            placeholder="add custom amount"
-          />
-        </form> */}
-      <button onClick={goToCheckout}>Checkout</button>
-    </div>
-  );
-};
-
-export default ShoppingCart;
+export default ShoppingCart

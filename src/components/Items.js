@@ -30,6 +30,7 @@ const Items = (props)=> {
                      <h3>{i.item}</h3> 
                      <h3>{i.id}</h3>    
                     <h3>${i.price.toFixed(2)}</h3> 
+                    <h4>{i.time}</h4>
                     
                     <img className = 'image'src = {i.image}/>
                     <button className = 'add-item' onClick = {()=> props.addItem(i)}>Add Item</button>
