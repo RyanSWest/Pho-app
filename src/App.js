@@ -66,7 +66,8 @@ function App() {
         render={() => <Drinks drinks={drinkies} addItem={addItem} />}
       />
 
-      <CartContext.Provider value={{ bill, setBill } }  >
+      <CartContext.Provider value={{ cart, setCart } }  >
+        <BillContext.Provider value = {{bill,setBill}} > 
        
         <Route
           path="/cart"
@@ -76,8 +77,9 @@ function App() {
         />
 
            <Route path="/checkout" render={() => <Checkout cart={cart} />} />
-           
+           </BillContext.Provider>   
       </CartContext.Provider>
+      
      </div>
   );
 }

@@ -1,11 +1,12 @@
 import React, {useState, useContext} from 'react'
 import {CartContext} from '../contexts/CartContext'
+import {BillContext} from '../contexts/BillContext'
 
 
 const Checkout = (props)=> {
 
     console.log("CHECKOUT PROPS", props)
-    const {bill}= useContext(CartContext)
+    const {bill}= useContext(BillContext)
     console.log("CHECKOUT BILL", bill) 
 
     function getTimeStamp() {
