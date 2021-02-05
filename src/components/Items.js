@@ -1,16 +1,26 @@
 import React from 'react';
 import Item from './Item';
 import '../App.css'
+import Navigation from './Navigation';
 
 
 
 const Items = (props)=> {
-   console.log( "HAY",props)
 
 
+    
+
+
+const adder = (e, item)=> {
+    e.stopPropogation()
+    props.addItem()
+
+}
 
     return (
-        <div className = 'items'>
+        <div>  
+         <div className = 'items'>
+ 
            
             {props.items.map(i=> {
                 <Item
@@ -33,10 +43,11 @@ const Items = (props)=> {
                     <h4>{i.time}</h4>
                     
                     <img className = 'image'src = {i.image}/>
-                    <button className = 'add-item' onClick = {()=> props.addItem(i)}>Add Item</button>
+                    <button className = 'add-item' onClick = {(e)=> {  props.addItem(i)}}>Add Item</button>
                     </div>
                 )
             })}   
+        </div>
         </div>
     )
 }

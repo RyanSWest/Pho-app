@@ -5,8 +5,7 @@ import {CartContext} from '../contexts/CartContext'
 
 const ShoppingCart = (props) => {
 
-  console.log("PROPS GODDAMIT", props)
-
+ 
   const {bill,setBill}= useContext(CartContext)
   // const {cart}= useContext(CartContext)
 
