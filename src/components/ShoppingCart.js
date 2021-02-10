@@ -1,5 +1,4 @@
 import React from "react";
-import Item from "./ShoppingCartItem";
 import { useState, useContext} from "react";
 import { CartContext } from "../contexts/CartContext";
 
@@ -81,7 +80,7 @@ const ShoppingCart = (props) => {
 
       <h3>Tip: {tip.toFixed(2)}</h3>
 
-      <h3>${bill.toFixed(2)}</h3>
+      <h3 className = 'total'> TOTAL : ${bill.toFixed(2)}</h3>
 
       <div className="tips">
         <div className="tip-div">

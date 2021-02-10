@@ -6,7 +6,10 @@
   height: 40vmin;
   pointer-events: none;
 }
- 
+.total{
+  background-color: orange;
+  color: white;
+}
 
  
   @keyframes slidein {
