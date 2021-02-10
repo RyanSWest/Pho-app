@@ -1,40 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Item from './Item';
 import '../App.css'
 import Navigation from './Navigation';
+import { ProductContext } from '../contexts/ProductContext';
+import {AddItemContext} from '../contexts/AddItemContext';
+ 
 
 
-
-const Items = (props)=> {
-
-
+const Items = ( )=> {
+const {addItem}= useContext(AddItemContext)
+const {items} = useContext(ProductContext)
+ 
     
 
 
-const adder = (e, item)=> {
-    e.stopPropogation()
-    props.addItem()
-
-}
+ 
 
     return (
         <div>  
          <div className = 'items'>
  
-           
-            {props.items.map(i=> {
-                <Item
-                key = {i.id}
-                {...i}
-                // item = {i.item}
-                // image = {i.image}
-                // price={i.price}
-                // addItem={props.addItem}
-                />
-             })}
+            
            
 
-              {props.items.map(i=> {
+              {items.map(i=> {
                 return (
                      <div  className = 'item' key = {i.id}>
                      <h3>{i.item}</h3> 
@@ -43,7 +32,7 @@ const adder = (e, item)=> {
                     <h4>{i.time}</h4>
                     
                     <img className = 'image'src = {i.image}/>
-                    <button className = 'add-item' onClick = {(e)=> {  props.addItem(i)}}>Add Item</button>
+                    <button className = 'add-item' onClick = {(e)=> {addItem(i)}}>Add Item</button>
                     </div>
                 )
             })}   

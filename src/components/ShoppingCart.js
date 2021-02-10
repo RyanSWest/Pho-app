@@ -1,6 +1,6 @@
 import React from "react";
 import Item from "./ShoppingCartItem";
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext} from "react";
 import { CartContext } from "../contexts/CartContext";
 
 import { useHistory } from "react-router-dom";
@@ -8,8 +8,7 @@ import { BillContext } from "../contexts/BillContext";
 
 const ShoppingCart = (props) => {
 
-  const isCurrent = useRef(true)
-  const history = useHistory();
+   const history = useHistory();
   const { bill, setBill } = useContext(BillContext);
   const { cart, setCart } = useContext(CartContext);
   const [tip, setTip] = useState(0);
@@ -33,12 +32,7 @@ const ShoppingCart = (props) => {
     history.push("/checkout");
   };
 
-  useEffect(() => {
-    return ()=> {
-      isCurrent.current = false;
-    }
-     
-  }, [cart.length]);
+   
 
 
   let total = getCartTotal();
@@ -58,24 +52,14 @@ const ShoppingCart = (props) => {
    
 
   const remover = (item) => {
-    if (isCurrent.current){
+     
     props.removeItem(item);
     setTip(total * 0.1);
     setTip(parseFloat (0));
-     }
+     
   };
 
-  const remover2 =(item)=> {
-    const filtered = cart.filter(e => {
-      if (e != item){
-        return e
-      }
-       
-    })
    
-    setCart(filtered)
-    console.log("CART=> ", cart)
-  }
 
   const cancelTip = () => {
     setCustomTip(0);
@@ -85,9 +69,9 @@ const ShoppingCart = (props) => {
     <div>
       <h2>Cart</h2>
 
-      {cart.map((e) => {
+      {cart.map((e, idx) => {
         return (
-          <div className="cart-item" key={e.id}>
+          <div className="cart-item" key={idx}>
             <h3>{e.item}</h3>
             <h3>${e.price.toFixed(2)}</h3>
             <button onClick={() => remover(e)}>remove</button>

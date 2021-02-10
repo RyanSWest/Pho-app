@@ -14,6 +14,9 @@ import Checkout from "./components/Checkout";
 import { CartContext } from "./contexts/CartContext";
 import {BillContext} from "./contexts/BillContext";
 import {ProductContext} from "./contexts/ProductContext";
+import {DrinkContext} from "./contexts/DrinkContext";
+import {AppetizerContext} from "./contexts/AppetizerContext";
+import {AddItemContext} from "./contexts/AddItemContext";
 
 function App() {
   const [items] = useState(data);
@@ -48,22 +51,29 @@ function App() {
         <h2 className = 'get'>What can we get PHO you?</h2>
          <Navigation cart={cart} />
       </div>
-         <Route
+      <AddItemContext.Provider value = {{addItem}}> 
+      <ProductContext.Provider value = {{items}} drinks = {{drinkies}}> 
+          <Route
         exact
         path="/"
         render={() => <Items items={items} addItem={addItem} />}
       />
-
- 
+     </ProductContext.Provider>
+         
+        <AppetizerContext.Provider value = {apps}> 
        <Route
         path="/apps"
         render={() => <Appetizers apps={apps} addItem={addItem} />}
       />
+      </AppetizerContext.Provider>
+      
+            <DrinkContext.Provider value = {{drinks}}> 
+
       <Route
         path="/drinks"
-        render={() => <Drinks drinks={drinkies} addItem={addItem} />}
+        render={() => <Drinks  addItem={addItem} />}
       />
- 
+           </DrinkContext.Provider>
       <CartContext.Provider value={{ cart, setCart } }  >
         <BillContext.Provider value = {{bill,setBill}} > 
        
@@ -77,7 +87,8 @@ function App() {
            <Route path="/checkout" render={() => <Checkout   />} />
             </BillContext.Provider>   
       </CartContext.Provider>
-  
+      </AddItemContext.Provider>
+   
       
      </div>
   );
